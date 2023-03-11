@@ -1,0 +1,397 @@
+openapi: 3.0.1
+info:
+  title: myapp
+  description: NODEJS-POSTGRESS-CRUD
+  version: 1.0.0
+servers:
+  - url: /api/v1
+tags:
+  - name: User
+    description: User Crud Operations
+paths:
+  /createUser:
+    post:
+      tags:
+        - User
+      description: Create a new user
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUser"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /userLogin:
+    post:
+      tags:
+        - User
+      description: user login
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userLogin"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /createCompany:
+    post:
+      tags:
+        - User
+      description: Create a new user
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createCompany"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /getUser:
+    get:
+      tags:
+        - User
+      description: Create a new user
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /getUserCompany:
+    get:
+      tags:
+        - User
+      description: Get company information by user
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /updateUserData:
+    put:
+      tags:
+        - User
+      description: updateUser
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateUser"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /updateCompanyData:
+    put:
+      tags:
+        - User
+      description: updateCompanyData
+      parameters:
+        - name: company_id
+          in: query
+          description: use this user id to get data.
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateCompanyData"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /deleteCompanyData:
+    post:
+      tags:
+        - User
+      description: deleteCompanyData
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: an example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deleteCompanyData"
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Example:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: example 3
+    Error:
+      type: object
+      additionalProperties: true
+    createUser:
+      title: createUser
+      required:
+        - userName
+        - userEmail
+        - userPhone
+        - userPassword
+      type: object
+      properties:
+        userName:
+          type: string
+          example: "userName"
+        userEmail:
+          type: string
+          example: "test@gmail.com"
+        userPhone:
+          type: integer
+          example: 9847952113
+        userAddress:
+          type: string
+          example: "userAddress"
+        userPassword:
+          type: string
+    createCompany:
+      title: createCompany
+      required:
+        - companyName
+        - companyEmail
+        - companyPhone
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: "companyName"
+        companyEmail:
+          type: string
+          example: "test@gmail.com"
+        companyPhone:
+          type: integer
+          example: 9847952113
+        companyAddress:
+          type: string
+          example: "companyAddress"
+    updateUser:
+      title: createUser
+      type: object
+      properties:
+        userName:
+          type: string
+          example: "userName"
+        userEmail:
+          type: string
+          example: "test@gmail.com"
+        userPhone:
+          type: integer
+          example: 9847952113
+        userAddress:
+          type: string
+          example: "userAddress"
+    updateCompanyData:
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: "companyName"
+        companyEmail:
+          type: string
+          example: "test@gmail.com"
+        companyPhone:
+          type: integer
+          example: 9847952113
+        companyAddress:
+          type: string
+          example: "companyAddress"
+    deleteCompanyData:
+      type: object
+      required:
+        - companyEmail
+      properties:
+        companyEmail:
+          type: string
+          example: "test@gmail.com"
+    userLogin:
+      title: createCompany
+      required:
+        - userEmail
+        - userPassword
+      type: object
+      properties:
+        userEmail:
+          type: string
+          example: "companyName"
+        userPassword:
+          type: string
