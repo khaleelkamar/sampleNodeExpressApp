@@ -97,7 +97,10 @@ exports.getUser = async (req, res) => {
 
   const userId = req.userId;
 
-  User.findOne({ where: { id: userId } })
+  User.findOne({
+    where: { id: userId },
+    attributes: ["id", "name", "email", "phone", "address"],
+  })
     .then((user) => {
       if (user) {
         // User exists, do something with the user object

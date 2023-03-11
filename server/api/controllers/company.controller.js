@@ -49,9 +49,17 @@ exports.getUserCompany = async (req, res) => {
 
   User.findOne({
     where: { id: userId },
+    attributes: ["id", "name", "email", "phone", "address"],
     include: {
       model: usersCompany,
       as: "usersCompany",
+      attributes: [
+        "id",
+        "company_name",
+        "company_email",
+        "company_phone",
+        "company_address",
+      ],
     },
   })
     .then((user) => {

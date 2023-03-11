@@ -15,11 +15,10 @@ const db = require("../api/model");
 db.sequelize
   .sync({ force: false })
   .then((result) => {
-   // logger.info("Synced database");
+   console.log("Synced database");
   })
   .catch((err) => {
-   // logger.error("Failed to sync db: " + err.message);
-    //console.log("Failed to sync db: " + err.message);
+    console.log("Failed to sync db: " + err.message);
   });
 
 
