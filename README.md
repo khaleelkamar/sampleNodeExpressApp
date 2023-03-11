@@ -11,7 +11,7 @@ DB NAME : crudDb
 
 ## Get Started
 
-Get started developing...
+Get started ...
 
 ```shell
 # install deps
