@@ -12,18 +12,18 @@ const bcrypt = require("bcrypt");
 const schema = new passwordValidator();
 schema
   .is()
-  .min(8, 'Password Minimum length 8') // Minimum length 8
+  .min(8, "Password Minimum length 8") // Minimum length 8
   .is()
-  .max(16, 'Password Maximum length 16') // Maximum length 16
+  .max(16, "Password Maximum length 16") // Maximum length 16
   .has()
-  .uppercase(1, 'Password should have a minimum of 1 uppercase letter') // Must have uppercase letters
+  .uppercase(1, "Password should have a minimum of 1 uppercase letter") // Must have uppercase letters
   .has()
-  .lowercase() // Must have lowercase letters
+  .lowercase(1, "Password should have a minimum of 1 lowercase letter") // Must have lowercase letters
   .has()
-  .digits() // Must have digits
+  .digits(1, "Password should have a minimum of 1 digit") // Must have digits
   .has()
   .not()
-  .spaces()  
+  .spaces("", "The Password should not have spaces");
 
 exports.createUser = async (req, res) => {
   if (!schema.validate(req.body.userPassword)) {
@@ -62,10 +62,16 @@ exports.createUser = async (req, res) => {
     // Save user in the database
     await User.create(userDetails)
       .then((data) => {
+        const userDetails = {
+          userId: data.id,
+          userName: data.name,
+          userPhone: data.phone,
+          userAddress: data.address,
+        };
         res.status(200).send({
           status: 200,
           message: "user created successfully",
-          data: data,
+          data: userDetails,
         });
       })
       .catch(async (err) => {
