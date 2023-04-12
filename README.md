@@ -21,6 +21,8 @@ DB NAME : crudDb
 Get started ...
 
 ```shell
+# clone the git repo
+https://github.com/khaleelkamar/sampleNodeExpressApp.git
 # install deps
 npm install
 
