@@ -8,6 +8,8 @@ servers:
 tags:
   - name: User
     description: User Crud Operations
+  - name: contacts
+    description: contacts Crud Operations 
 paths:
   /createUser:
     post:
@@ -71,11 +73,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /createCompany:
+  /contacts:
     post:
       tags:
-        - User
-      description: Create a new user
+        - contacts
+      description: Create a new Contact
       parameters:
         - in: header
           name: x-access-token
@@ -87,7 +89,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/createCompany"
+              $ref: "#/components/schemas/createContact"
         required: true
       responses:
         201:
@@ -108,13 +110,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - contacts
+      description: Create a new Contact
+      parameters:
+        - in: header
+          name: x-access-token
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"   
 
-  /getUser:
+  /contacts/{id}:
     get:
       tags:
-        - User
-      description: Create a new user
+        - contacts
+      description: get contacts
       parameters:
+        - name: id
+          in: path
+          description: The id of the conatct to retrieve
+          required: true
+          schema:
+            type: integer
         - in: header
           name: x-access-token
           required: true
@@ -134,47 +171,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         5XX:
-          description: Example not found
+          description: Data not found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /getUserCompany:
-    get:
-      tags:
-        - User
-      description: Get company information by user
-      parameters:
-        - in: header
-          name: x-access-token
-          required: true
-          schema:
-            type: string
-      responses:
-        201:
-          description: Return the example with the specified id
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Example"
-        4XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        5XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /updateUserData:
     put:
       tags:
-        - User
-      description: updateUser
+        - contacts
+      description: get contacts
       parameters:
+        - name: id
+          in: path
+          description: The id of the conatct to update the data
+          required: true
+          schema:
+            type: integer
         - in: header
           name: x-access-token
           required: true
@@ -185,7 +197,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/updateUser"
+              $ref: "#/components/schemas/createContact"
         required: true
       responses:
         201:
@@ -201,35 +213,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         5XX:
-          description: Example not found
+          description: Data not found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /updateCompanyData:
-    put:
+    delete:
       tags:
-        - User
-      description: updateCompanyData
+        - contacts
+      description: get contacts
       parameters:
-        - name: company_id
-          in: query
-          description: use this user id to get data.
+        - name: id
+          in: path
+          description: The id of the conatct to update the data
           required: true
           schema:
-            type: string
+            type: integer
         - in: header
           name: x-access-token
           required: true
           schema:
             type: string
-      requestBody:
-        description: an example
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/updateCompanyData"
-        required: true
       responses:
         201:
           description: Return the example with the specified id
@@ -244,44 +248,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         5XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /deleteCompanyData:
-    post:
-      tags:
-        - User
-      description: deleteCompanyData
-      parameters:
-        - in: header
-          name: x-access-token
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: an example
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteCompanyData"
-        required: true
-      responses:
-        201:
-          description: Return the example with the specified id
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Example"
-        4XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        5XX:
-          description: Example not found
+          description: Data not found
           content:
             application/json:
               schema:
@@ -305,93 +272,54 @@ components:
       title: createUser
       required:
         - userName
-        - userEmail
-        - userPhone
         - userPassword
       type: object
       properties:
         userName:
           type: string
           example: "userName"
-        userEmail:
-          type: string
-          example: "test@gmail.com"
-        userPhone:
-          type: integer
-          example: 9847952113
-        userAddress:
-          type: string
-          example: "userAddress"
         userPassword:
           type: string
-    createCompany:
-      title: createCompany
-      required:
-        - companyName
-        - companyEmail
-        - companyPhone
+          example: "userName"
+    createContact:
+      title: createContact
       type: object
       properties:
-        companyName:
-          type: string
-          example: "companyName"
-        companyEmail:
-          type: string
-          example: "test@gmail.com"
-        companyPhone:
-          type: integer
-          example: 9847952113
-        companyAddress:
-          type: string
-          example: "companyAddress"
-    updateUser:
-      title: createUser
-      type: object
-      properties:
-        userName:
+        firstName:
           type: string
           example: "userName"
-        userEmail:
+        lastName:
           type: string
           example: "test@gmail.com"
-        userPhone:
-          type: integer
-          example: 9847952113
-        userAddress:
+        email:
+          type: string
+          example: "test@gmail.com"
+        phone:
           type: string
           example: "userAddress"
-    updateCompanyData:
-      type: object
-      properties:
-        companyName:
+        address:
           type: string
-          example: "companyName"
-        companyEmail:
+        city:
           type: string
           example: "test@gmail.com"
-        companyPhone:
-          type: integer
-          example: 9847952113
-        companyAddress:
+        state:
           type: string
-          example: "companyAddress"
-    deleteCompanyData:
-      type: object
-      required:
-        - companyEmail
-      properties:
-        companyEmail:
+          example: "kerala"
+        country:
           type: string
-          example: "test@gmail.com"
+          example: "userAddress"
+        zipCode:
+          type: string
     userLogin:
       title: createCompany
       required:
-        - userEmail
+        - userName
         - userPassword
       type: object
       properties:
-        userEmail:
+        userName:
           type: string
-          example: "companyName"
+          example: "userName"
         userPassword:
           type: string
+          example: "Password@98"

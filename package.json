@@ -16,7 +16,6 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
-    "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -38,7 +37,8 @@
     "@babel/preset-env": "^7.14.4",
     "@babel/register": "^7.13.16",
     "babel-eslint": "^10.1.0",
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",

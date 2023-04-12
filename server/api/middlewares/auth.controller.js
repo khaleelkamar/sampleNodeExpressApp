@@ -6,7 +6,7 @@ function verifyToken(req, res, next) {
     console.log("req.headers[",req.headers)
   const authHeader = req.headers["x-access-token"];;
   if (!authHeader) {
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ message: 'Not authorized',status:401 });
   }
 
   try {
@@ -14,7 +14,7 @@ function verifyToken(req, res, next) {
     req.userId = decoded.userId;
     next();
   } catch (err) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ message: "Not authorized" ,status:401});
   }
 }
 

@@ -13,6 +13,7 @@ DB NAME : crudDb
 2. ExpressJS
 3. PostgreSQL
 4. Sequelize
+5. pino for log
 
 
 ## Get Started
@@ -33,11 +34,6 @@ Landing page at http://localhost:3000
 # run tests
 npm run test
 ```
-
-FOR DOCKER UP
-
-# run DOCKER
-docker-compose up
 
 
 

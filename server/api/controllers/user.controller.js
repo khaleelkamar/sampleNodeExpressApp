@@ -51,10 +51,7 @@ exports.createUser = async (req, res) => {
 
   // Create a userJson
   const userDetails = {
-    name: req.body.userName,
-    email: req.body.userEmail,
-    phone: req.body.userPhone,
-    address: req.body.userAddress,
+    userName: req.body.userName,
     password: userPasswordHash,
   };
   console.log(userDetails);
@@ -70,8 +67,8 @@ exports.createUser = async (req, res) => {
         };
         res.status(200).send({
           status: 200,
-          message: "user created successfully",
-          data: userDetails,
+          message: "Success",
+          result: userDetails,
         });
       })
       .catch(async (err) => {
@@ -92,108 +89,30 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getUser = async (req, res) => {
-  // Create a userJson
-
-  const userId = req.userId;
-
-  User.findOne({
-    where: { id: userId },
-    attributes: ["id", "name", "email", "phone", "address"],
-  })
-    .then((user) => {
-      if (user) {
-        // User exists, do something with the user object
-        res.status(200).send({
-          status: 200,
-          message: "user details",
-          data: user,
-        });
-      } else {
-        // User does not exist
-        res.status(404).send({
-          status: 404,
-          message: "User not found",
-          data: userId,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(404).send({
-        status: 404,
-        message: "User not found",
-        data: userId,
-      });
-    });
-};
-
-exports.updateUserData = async (req, res) => {
-  // Create a userJson
-
-  const {
-    userName: name,
-    userEmail: email,
-    userPhone: phone,
-    userAddress: address,
-  } = req.body;
-
-  const updatedUser = { name, email, phone, address };
-  const userId = req.userId;
-
-  User.update(
-    updatedUser, // Values to update
-    { where: { id: userId } } // Criteria for the update
-  )
-
-    .then((numRowsAffected) => {
-      if (numRowsAffected) {
-        // User exists, do something with the user object
-        res.status(200).send({
-          status: 200,
-          message: `${numRowsAffected} rows were updated`,
-        });
-      } else {
-        // User does not exist
-        res.status(404).send({
-          status: 404,
-          message: "User not found",
-          data: userId,
-        });
-      }
-    })
-    .catch(async (err) => {
-      const errorMessage = await sequelizeError(err);
-      res.status(404).send({
-        status: 404,
-        message: errorMessage,
-      });
-    });
-};
 
 exports.userLogin = async (req, res) => {
   // Create a userJson
 
-  const { userEmail: email, userPassword: password } = req.body;
+  const { userName: userName, userPassword: password } = req.body;
 
   // Find the user by email
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { userName } });
 
   if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ status:401,message: "Not authorized" });
   }
 
   // Check if the password matches the hashed password
   if (!bcrypt.compareSync(password, user.password)) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ status:401,message: "Not authorized" });
   }
-
   // If the email and password are correct, return the user object
   const userId = user.id;
   const token = jwt.sign({ userId }, secret, { expiresIn: "1h" });
   return res.status(200).send({
     status: 200,
-    message: "user details",
-    data: user,
+    message: "Success",
+    result: user,
     accessToke: token,
   });
 };

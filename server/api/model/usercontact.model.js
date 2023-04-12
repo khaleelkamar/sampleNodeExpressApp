@@ -1,29 +1,38 @@
+
 module.exports = (sequelize, Sequelize) => {
-    const UserCompanies = sequelize.define(
-      "user_companies",
+    const ContactDetails = sequelize.define(
+      "contact_details",
       {
         id: {
           type: Sequelize.INTEGER,
           autoIncrement: true,
           primaryKey: true,
         },
-        company_name: {
+        firstName: {
           type: Sequelize.STRING(50),
           allowNull: false,
-          unique: {
-            args: true,
-            msg: "Company name already in use!",
-          },
           validate: {
             notNull: {
-              msg: "Please enter company name", // custom error message for notNull
+              msg: "First name is required", // custom error message for notNull
             },
             notEmpty: {
-              msg: "Please enter company name", // custom error message for empty
+              msg: "First name is required", // custom error message for empty
             },
           },
         },
-        company_email: {
+        lastName: {
+            type: Sequelize.STRING(50),
+            allowNull: false,
+            validate: {
+              notNull: {
+                msg: "lastName name is required", // custom error message for notNull
+              },
+              notEmpty: {
+                msg: "lastName name is required", // custom error message for empty
+              },
+            },
+          },
+          email: {
           type: Sequelize.STRING(20),
           allowNull: false,
           unique: {
@@ -38,11 +47,11 @@ module.exports = (sequelize, Sequelize) => {
               msg: "Please enter email", // custom error message for empty
             },
             isEmail: {
-              msg: "Please enter valid email", // custom error message for empty
+              msg: "Invalid email", // custom error message for empty
             },
           },
         },
-        company_phone: {
+        phone: {
           type: Sequelize.STRING(10),
           allowNull: false,
           unique: {
@@ -67,13 +76,22 @@ module.exports = (sequelize, Sequelize) => {
             },
           },
         },
-        company_address: {
+        address: {
           type: Sequelize.STRING(255),
         },
+        state: {
+            type: Sequelize.STRING(20),
+          },
+          city: {
+            type: Sequelize.STRING(20),
+          },
+          zipCode: {
+            type: Sequelize.STRING(20)
       },
+    },
       { timestamps: true }
     );
   
-    return UserCompanies;
+    return ContactDetails;
   };
   

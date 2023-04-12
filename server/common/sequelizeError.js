@@ -1,19 +1,24 @@
 const sqError = (error) => {
-  console.log("sqError===> " + error);
+  console.log("sqError===> " + error.name);
 
   let erMsg = "";
+  let  errors={}
   if (error.name === "SequelizeValidationError") {
-    erMsg = error.errors[0].message;
-
+    //erMsg = error.errors[0].message;
+    console.log("errors==>",errors)
     //for Multiple errors in single response
-    // const errors = error.errors.map((err) => ({
-    //   field: err.path,
-    //   message: err.message,
-    // }));
+      errors = error.errors.map((err) => ({
+      [err.path]: err.message,
+    }));
 
-    // return errors;
+    return errors;
   } else if (error.name === "SequelizeUniqueConstraintError") {
-    erMsg = error.message;
+    //erMsg = error.message;
+    errors = error.errors.map((err) => ({
+      [err.path]: err.message,
+    }));
+
+    return errors;
   } else if (error.name === "SequelizeForeignKeyConstraintError") {
     if (error.parent.detail) {
       let keyValue = error.parent.detail.match(/\(([^)]+)\)/)[1];
